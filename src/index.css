@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #f4efe6;
+  --color-ink: #0d0d0d;
+  --color-coal: #161514;
+  --color-red: #d32a20;
+  --color-wine: #a3201a;
+  --font-sans: "Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--color-ink); color: var(--color-primary); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+
+.noise-overlay { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* фон заставки: медленные красные пятна вместо видео */
+.aura { position: absolute; inset: 0; overflow: hidden; background: #120706; }
+.aura i { position: absolute; border-radius: 50%; filter: blur(70px); will-change: transform; }
+.aura i:nth-child(1) { width: 62vw; height: 62vw; left: -12vw; top: -22vw; background: #d32a20; animation: drift-a 19s ease-in-out infinite alternate; }
+.aura i:nth-child(2) { width: 46vw; height: 46vw; right: -8vw; top: 6vh; background: #7a130f; animation: drift-b 23s ease-in-out infinite alternate; }
+.aura i:nth-child(3) { width: 38vw; height: 38vw; left: 34vw; bottom: -16vw; background: #ff5a3c; opacity: .75; animation: drift-c 17s ease-in-out infinite alternate; }
+.aura i:nth-child(4) { width: 22vw; height: 22vw; left: 56vw; top: 18vh; background: #f4efe6; opacity: .5; animation: drift-b 29s ease-in-out infinite alternate-reverse; }
+.aura i:nth-child(5) { width: 54vw; height: 54vw; left: 8vw; bottom: -30vw; background: #0d0d0d; animation: drift-a 26s ease-in-out infinite alternate-reverse; }
+/* орбита из логотипа */
+.aura b { position: absolute; left: 8%; right: -6%; top: 16%; height: 46%; border: 2px solid rgba(244, 239, 230, .5); border-radius: 50%; transform: rotate(-17deg); }
+.aura b + b { left: 2%; right: -12%; top: 10%; height: 58%; border-color: rgba(244, 239, 230, .2); }
+@keyframes drift-a { to { transform: translate(14vw, 12vh) scale(1.15); } }
+@keyframes drift-b { to { transform: translate(-16vw, 16vh) scale(.85); } }
+@keyframes drift-c { to { transform: translate(-10vw, -18vh) scale(1.25); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .aura i { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* на телефоне пятна крупнее, иначе фон получается тёмным */
+@media (max-width: 700px) {
+  .aura i:nth-child(1) { width: 120vw; height: 120vw; left: -40vw; top: -30vw; }
+  .aura i:nth-child(2) { width: 90vw; height: 90vw; right: -30vw; top: 12vh; }
+  .aura i:nth-child(3) { width: 80vw; height: 80vw; left: 20vw; bottom: 4vh; }
+  .aura i:nth-child(4) { width: 44vw; height: 44vw; left: 40vw; top: 26vh; }
+  .aura i:nth-child(5) { width: 110vw; height: 110vw; left: -20vw; bottom: -70vw; }
+  .aura i { filter: blur(46px); }
+}
